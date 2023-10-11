@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Заголовок та інші теги <head> -->
+</head>
+<body>
+  <header>
+    <!-- Навігація та інші елементи заголовку -->
+    <nav>
+      <ul>
+        <li><%= link_to 'Головна', root_path %></li>
+        <% unless user_signed_in? %>
+          <li><%= link_to 'Вхід', new_user_session_path %></li>
+          <li><%= link_to 'Реєстрація', new_user_registration_path %></li>
+        <% end %>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <%= yield %>
+  </main>
+
+  <footer>
+    <!-- Вміст футера -->
+  </footer>
+</body>
+</html>
