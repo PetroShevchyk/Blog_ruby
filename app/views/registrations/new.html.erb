@@ -1,0 +1,20 @@
+<h2>Реєстрація</h2>
+
+<%= form_for(@user, url: signup_path) do |f| %>
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <%= f.submit 'Зареєструватися' %>
+<% end %>

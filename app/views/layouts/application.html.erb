@@ -1,28 +1,55 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <!-- Заголовок та інші теги <head> -->
-</head>
-<body>
-  <header>
-    <!-- Навігація та інші елементи заголовку -->
-    <nav>
+  <head>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>  
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %> 
+  </head>
+  
+  <body>
+    <header>
+      <!-- Навігація та інші елементи заголовку -->
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Blog</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <%= link_to 'Головна', posts_path, class: "nav-link" %>
+              <% unless user_signed_in? %>
+                <%= link_to 'Вхід', new_user_session_path, class: "nav-link" %>
+                <%= link_to 'Реєстрація', new_user_registration_path, class: "nav-link" %>
+              <% else %>
+                <%= link_to 'Особистий кабінет', edit_user_registration_path, class: "nav-link" if current_user %>
+                <%= link_to 'Вийти', destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "nav-link" %>
+              <% end %>
+            </div> 
+          </div>
+          <%= link_to 'Новий пост', new_post_path, class: "btn btn-primary" %>
+        </div>
+      </nav>
+    </header>
+    <div class="container main">
+      <div class="row">
+        <div class="col-md-12">
+          <% flash.each do |name, message| %>
+            <div class="alert alert-#{name}">
+              <%= message %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <main>
       <ul>
-        <li><%= link_to 'Головна', root_path %></li>
-        <% unless user_signed_in? %>
-          <li><%= link_to 'Вхід', new_user_session_path %></li>
-          <li><%= link_to 'Реєстрація', new_user_registration_path %></li>
-        <% end %>
+
+        <%= yield %>
       </ul>
-    </nav>
-  </header>
+    </main>
 
-  <main>
-    <%= yield %>
-  </main>
-
-  <footer>
-    <!-- Вміст футера -->
-  </footer>
-</body>
+    <footer>
+      <!-- Вміст футера -->
+    </footer>
+  </body>
 </html>

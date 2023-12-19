@@ -1,0 +1,13 @@
+<h1>Редагування профілю</h1>
+<%= form_for(@user) do |f| %>
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+
+  <!-- Додаткові поля для редагування -->
+
+  <div class="actions">
+    <%= f.submit 'Оновити профіль' %>
+  </div>
+<% end %>
